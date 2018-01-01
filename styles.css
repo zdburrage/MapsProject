@@ -1,0 +1,99 @@
+@media only screen and (max-width: 900px) {
+	body #map {
+	height: 60%;
+	width: 100%;
+    bottom:0px;
+    right: 0px;
+}
+/*#list {
+	display: inline-flex;
+}
+#photo {
+	display: inline-flex;
+}*/
+#search {
+	padding-right: 2%;
+	height: auto;
+	display: inline-block;
+	width: 47%;
+}
+#directions {
+	padding-left: 2%;
+	height: auto;
+	display: inline-block;
+	width: 47%;
+}
+	body .options-box {
+	display: inline-block;
+	height: auto;
+	width: 100%;
+	position: absolute; 
+	z-index: 99;
+	line-height: 25px;
+	padding: 10px 10px 30px 10px;
+	}
+	body .teleport-img {
+		padding-right: 5%;
+		position: relative;
+		width: 80%
+	}
+}
+@media only screen and (max-width: 680px) {
+
+	body #map {
+
+	}
+}
+.cursor {
+	cursor: pointer;
+}
+
+.teleport-img {
+	width: 30%;
+	height: 40%;
+	position: absolute;
+	left: 0;
+    bottom: 0;
+}
+
+#map {
+	width: 75%;
+    bottom:0px;
+    height: 100%;
+    position: absolute;
+    right: 0px;
+}
+
+
+
+#wrapper{
+position: relative;
+}
+.options-box {
+	height: 100%;
+	width: 25%;
+	z-index: 99;
+	background: #d3d3d3;
+	line-height: 25px;
+	padding: 10px 10px 30px 10px;
+}
+ul {
+  list-style-type: none;
+}
+.hidden {
+	display: none;
+}
+.loader {
+	float: right;
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid black; /* Blue */
+    border-radius: 50%;
+    width: 20px;
+    height: auto;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

@@ -1,0 +1,62 @@
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="styles.css"></link>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
+    <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVvcJyhmM05tLSj5l3ioOumqPbGWVxdYA&v=3&callback=initMap">
+    </script>
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="app.js"></script>
+</head>
+
+<body onresize="self.mediaQuery()">
+    <div class="options-box">
+    	<div id="search">
+        <h2>Cool Spots in Dallas</h2>
+        <label>Filter Locations: </label>
+        <input class="form-control" placeholder="Search…" type="search" name="filter" data-bind="value: query, valueUpdate: 'keyup'" autocomplete="off">
+        <div id="list">
+            <ul data-bind="foreach: filterDestinations">
+
+                <a style="width: 10%" class="cursor">
+                    <li data-bind="text: title, click: $parent.showInfo"></li>
+                </a>
+            </ul>
+        </div>
+        
+        </div>
+        <div id="directions">
+            <h2>Get Directions:</h2>
+            <div class = "row">
+            <div class = "col-md-12">
+            <div id="hidden" class="hidden">
+            	<p>Finding Current Location</p>
+            	<p class="loader">
+    			</p>
+    		</div>
+    	</div>
+    	</div>
+            <h4>Start Location</h4>
+            <input type="text" class="form-control" id="start" data-bind="value: startLocation, valueUpdate: 'keyup'">
+            <br>
+            <h4>End Location</h4>
+            <select class="form-control" id="end" data-bind="options: destinations, optionsText: 'title', selectedOptions: endLocation, value: endLocation">
+  			 
+  			</select>
+            <button class="form-control" type="submit" data-bind="click: getDirections">Get Directions</button>
+        </div>
+        <!-- 			<div id ="photo">
+  				<center><img alt="Dallas Skyline" class="teleport-img" data-bind="attr:{src: imagePath}"></center>
+
+
+  			</div> -->
+    </div>
+    <div id="map">
+    </div>
+
+</body>
+
+</html>

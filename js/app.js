@@ -1,3 +1,14 @@
+// Hello.
+//
+// This is JSHint, a tool that helps to detect errors and potential
+// problems in your JavaScript code.
+//
+// To start, simply enter some JavaScript anywhere on this page. Your
+// report will appear on the right side.
+//
+// Additionally, you can toggle specific options in the Configure
+// menu.
+
       var locations = [{
               title: 'Sapa House',
               location: {
@@ -38,26 +49,25 @@
               },
               fourSquareId: "5290ea7d11d23122edf13b03"
           },
-      ]
+      ];
 
-      var infowindows = []
+      var infowindows = [];
 
       var markers = [
 
-      ]
+      ];
 
       var Destination = function(d) {
-          this.title = ko.observable(d.title);
           this.lat = ko.observable(d.location.lat);
           this.lng = ko.observable(d.location.lng);
           this.fourSquareId = ko.observable(d.fourSquareId);
           this.marker = ko.observable();
           this.address = ko.observable('');
           this.phone = ko.observable('');
-          this.photo = ko.observable(' ')
+          this.photo = ko.observable(' ');
           this.categories = ko.observableArray([]);
           this.url = ko.observable('');
-      }
+      };
       var self;
       var ViewModel = function() {
           self = this;
@@ -67,7 +77,7 @@
           self.currentLocation = ko.observable();
           locations.forEach(function(d) {
               self.destinations.push(new Destination(d));
-          })
+          });
           self.query = ko.observable('');
           self.imagePath = ko.observable('');
           var webResult;
@@ -87,7 +97,7 @@
 
               },
               error: function(e) {
-                  self.imagePath("https://visitdallas.imgix.net/media_gallery/skyline-and-downtown/skyline/Dallas_CVB_Clay_Coleman_2.jpg")
+                  self.imagePath("https://visitdallas.imgix.net/media_gallery/skyline-and-downtown/skyline/Dallas_CVB_Clay_Coleman_2.jpg");
               }
           });
 
@@ -113,12 +123,12 @@
                       var result = data.response.venue;
 
                       d.address(result.location.address + ' ' + result.location.city + ', ' + result.location.state);
-                      d.phone(result.contact.formattedPhone || 'No Phone Number Provided')
-                      d.photo(result.bestPhoto.prefix + '100x100' + result.bestPhoto.suffix)
+                      d.phone(result.contact.formattedPhone || 'No Phone Number Provided');
+                      d.photo(result.bestPhoto.prefix + '100x100' + result.bestPhoto.suffix);
                       d.url(result.url || '');
                       result.categories.forEach(function(c) {
                           d.categories.push(' ' + c.name);
-                      })
+                      });
                       google.maps.event.addListener(d.marker, 'click', function() {
                           self.closeAllInfoWindows();
                           infowindow.open(map, this);
@@ -131,7 +141,7 @@
                               '<br>' + '<br>' + '<p>Phone Number: ' + d.phone() +
                               '</p>' + '<p>Category: ' + d.categories() + '</p>' + '<a href =' + d.url() + '>' + d.url() + '</a>');
 
-                      })
+                      });
 
                   },
                   error: function(e) {
@@ -144,18 +154,18 @@
                           }, 800);
                           infowindow.setContent('<h5>Foursquare data is unavailable. Please try refreshing later.</h5>');
 
-                      })
+                      });
 
                   }
 
-              })
-          })
+              });
+          });
 
           self.closeAllInfoWindows = function() {
               for (var i = 0; i < infowindows.length; i++) {
                   infowindows[i].close();
               }
-          }
+          };
 
           self.showInfo = function(d) {
               google.maps.event.trigger(d.marker, 'click');
@@ -187,7 +197,7 @@
                       window.alert('Directions request failed due to ' + status);
                   }
               });
-          }
+          };
 
           self.filterDestinations = ko.computed(function() {
               var search = self.query().toLowerCase();
@@ -201,7 +211,7 @@
               });
           });
 
-      }
+      };
 
 
 
@@ -240,14 +250,14 @@
                   populateInfoWindow(this, largeInfowindow);
               });
           }
-          infoWindow = new google.maps.InfoWindow;
+          infoWindow = new google.maps.InfoWindow();
           getCurrentLocation();
       }
 
 
       function getCurrentLocation() {
           if (navigator.geolocation) {
-          	$('#hidden').toggleClass('hidden');
+            $('#hidden').toggleClass('hidden');
               navigator.geolocation.getCurrentPosition(function(position) {
                   var geocoder = new google.maps.Geocoder();
                   var pos = {
@@ -261,19 +271,19 @@
                       if (status === google.maps.GeocoderStatus.OK) {
                           if (results[1]) {
                               self.startLocation(results[0].formatted_address);
-			                  var marker = new google.maps.Marker({
-				                  position: pos,
-				                  title: 'Your Location (' + results[0].formatted_address + ')' ,
-				                  animation: google.maps.Animation.DROP,
-				                  map: map
-			              	  });
-			              	  populateInfoWindow(marker, infoWindow);
-			              	  marker.addListener('click', function() {
-			                  	populateInfoWindow(this, infoWindow);
-			              	  });
-			              	  markers.push(marker);
-			                  map.setCenter(pos);
-			                  $('#hidden').toggleClass('hidden');
+                        var marker = new google.maps.Marker({
+                          position: pos,
+                          title: 'Your Location (' + results[0].formatted_address + ')' ,
+                          animation: google.maps.Animation.DROP,
+                          map: map
+                        });
+                        populateInfoWindow(marker, infoWindow);
+                        marker.addListener('click', function() {
+                          populateInfoWindow(this, infoWindow);
+                        });
+                        markers.push(marker);
+                        map.setCenter(pos);
+                        $('#hidden').toggleClass('hidden');
                           } else {
                               alert('No results found');
                               $('#hidden').toggleClass('hidden');

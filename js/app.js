@@ -64,6 +64,7 @@
           this.marker = ko.observable();
           this.address = ko.observable('');
           this.phone = ko.observable('');
+          this.title = ko.observable(' ');
           this.photo = ko.observable(' ');
           this.categories = ko.observableArray([]);
           this.url = ko.observable('');
@@ -126,6 +127,7 @@
                       d.phone(result.contact.formattedPhone || 'No Phone Number Provided');
                       d.photo(result.bestPhoto.prefix + '100x100' + result.bestPhoto.suffix);
                       d.url(result.url || '');
+                      d.title(result.name);
                       result.categories.forEach(function(c) {
                           d.categories.push(' ' + c.name);
                       });
@@ -246,15 +248,19 @@
               map.directionsDisplay.setMap(map);
 
               // Create an onclick event to open an infowindow at each marker.
-              marker.addListener('click', function() {
-                  populateInfoWindow(this, largeInfowindow);
-              });
+              addMarkerListener(marker, largeInfowindow);
           }
           infoWindow = new google.maps.InfoWindow();
           getCurrentLocation();
       }
 
+      function addMarkerListener(marker, largeInfowindow) {
 
+        marker.addListener('click', function() {
+          populateInfoWindow(this, largeInfowindow);
+        });
+
+      }
       function getCurrentLocation() {
           if (navigator.geolocation) {
             $('#hidden').toggleClass('hidden');
